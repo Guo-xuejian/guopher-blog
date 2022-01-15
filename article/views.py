@@ -148,7 +148,15 @@ def article_create(request):
     # 判断用户是否提交数据
     if request.method == "POST":
         # 将提交的数据赋值到表单实例中
-        article_post_form = ArticlePostForm(request.POST, request.FILES)
+        # 全部使用小写
+        post_data = request.POST.copy()
+        post_data["tags"] = post_data["tags"].lower()
+        # article_post_form = ArticlePostForm(request.POST, request.FILES)
+        article_post_form = ArticlePostForm(post_data, request.FILES)
+        # a = article_post_form.copy()
+        # a.data['tags'] = article_post_form.a['tags'].lower()
+        # print(a.data["tags"])
+        # print(article_post_form.data.update("tags"))
         # 判断提交的数据是否满足模型的要求
         if article_post_form.is_valid():
             # 保存数据，但暂时不提交到数据库中
