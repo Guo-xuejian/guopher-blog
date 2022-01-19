@@ -113,7 +113,7 @@
                     <!-- 摘要 -->
                     <div>
                         <p style="color: gray;">
-                            {{ article.body|slice:'100' }}...
+                            {{ article.body|safe|striptags|truncatechars:100 }}...
                         </p>
                     </div>
                     <!-- 注脚 -->

@@ -10,6 +10,10 @@ from django.urls import reverse
 from django.utils.html import format_html
 from taggit.managers import TaggableManager
 
+# Django-ckeditor
+# from ckeditor.fields import RichTextField
+from ckeditor_uploader.fields import RichTextUploadingField
+
 # 处理图片
 from PIL import Image
 
@@ -67,7 +71,8 @@ class ArticlePost(models.Model):
 
     # 文章正文。
     # 保存大量文本使用 TextField
-    body = models.TextField(verbose_name=u'正文')
+    # body = models.TextField(verbose_name=u'正文')
+    body = RichTextUploadingField(verbose_name='正文',config_name='default')
 
     # 浏览量
     total_views = models.PositiveIntegerField(default=0, verbose_name=u'浏览量')

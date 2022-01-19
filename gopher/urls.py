@@ -1,6 +1,8 @@
 from django.contrib import admin
 # 记得引入include
-from django.urls import path, include
+from django.urls import path, include, re_path
+from django.views.static import serve
+from .settings import MEDIA_ROOT
 
 from django.conf import settings
 from django.conf.urls.static import static
@@ -29,5 +31,10 @@ urlpatterns = [
     path('notice/', include('notice.urls', namespace='notice')),
     # django-allauth
     path('accounts/', include('allauth.urls')),
+    #上传media的文件可以被查看，这个很重要，更后边的一个bug有关
+    re_path(r'^media/(?P<path>.*)$', serve, {"document_root": MEDIA_ROOT}),
+ 
+    #ckckeditor图片上传
+    path('ckeditor/', include('ckeditor_uploader.urls')),
 ]
 urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

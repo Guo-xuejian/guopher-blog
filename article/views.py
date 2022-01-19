@@ -158,6 +158,8 @@ def article_create(request):
         # print(a.data["tags"])
         # print(article_post_form.data.update("tags"))
         # 判断提交的数据是否满足模型的要求
+        print(article_post_form.is_bound)
+        print(article_post_form.errors)
         if article_post_form.is_valid():
             # 保存数据，但暂时不提交到数据库中
             new_article = article_post_form.save(commit=False)

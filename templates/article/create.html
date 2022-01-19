@@ -4,76 +4,108 @@
 {% block title %} 写文章 {% endblock title %}
 <!-- 写入 base.html 中定义的 content -->
 {% block content %}
-    <!-- 写文章表单 -->
-    <div class="container">
-        <div class="row">
-            <div class="col-12">
-                <br>
-                <!-- 提交文章的表单 -->
-                <form method="post" action="." enctype="multipart/form-data">
-                    <!-- Django中需要POST数据的地方都必须有csrf_token -->
-                    {% csrf_token %}
+<!-- 写文章表单 -->
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <br>
+            <!-- 提交文章的表单 -->
+            <form method="post" action="." enctype="multipart/form-data">
+                <!-- Django中需要POST数据的地方都必须有csrf_token -->
+                {% csrf_token %}
 
-                    <!-- 文章标题图 -->
-                    <div class="form-group">
-                        <label for="avatar">标题图</label>
-                        <input type="file" class="form-control-file" name="avatar" id="avatar">
-                    </div>
+                <!-- 文章标题图 -->
+                <!-- <div class="form-group">
+                    <label for="avatar">标题图</label>
+                    <input type="file" class="form-control-file" name="avatar" id="avatar">
+                </div> -->
+                <div class="form-group">
+                    <label for="avatar">标题图</label>
+                    <!-- <div class="col-sm-1"></div> -->
+                    <!-- <div class="col-sm-12"> -->
+                    <!-- <p>选择文件</p> -->
+                    <div class="input-group">
+                        <input id='location' class="form-control" onclick="$('#avatar').click();">
+                        <label class="input-group-btn">
+                            <input type="button" id="i-check" value="选择文件" class="btn btn-primary"
+                                onclick="$('#avatar').click();">
 
-                    <!-- 文章标题 -->
-                    <div class="form-group">
-                        <!-- 标签 -->
-                        <label for="title">文章标题</label>
-                        <!-- 文本框 -->
-                        <input type="text"
-                               class="form-control"
-                               id="title"
-                               name="title"
-                        >
+                            <!-- <input type="submit" value="上传文件" onclick="getCookieInfoInLimitedTime()"
+                                    class="btn btn-primary"> -->
+                        </label>
                     </div>
+                    <!-- </div> -->
+                    <input type="file" name="avatar" id='avatar' multiple="multiple"
+                        accept="application/msexcel,application/msword,application/pdf,image/jpeg,image/text/plain/png,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                        onchange="$('#location').val($('#avatar').val());" style="display: none">
+                </div>
 
-                    <!-- 文章栏目 -->
-                    <div class="form-group">
-                        <label for="column">栏目</label>
-                        <select class="form-control col-3"
-                                id="column"
-                                name="column"
-                        >
-                            <option value="none">请选择栏目..</option>
-                            {% for column in columns %}
-                                <option value="{{ column.id }}">{{ column }}</option>
-                            {% endfor %}
-                        </select>
-                    </div>
+                <!-- 文章标题 -->
+                <div class="form-group">
+                    <!-- 标签 -->
+                    <label for="title">文章标题</label>
+                    <!-- 文本框 -->
+                    <input type="text" class="form-control" id="title" name="title">
+                </div>
 
-                    <!-- 文章标签 -->
-                    <div class="form-group">
-                        <!-- 标签 -->
-                        <label for="tags">标签</label>
-                        <!-- 文本框 -->
-                        <input type="text"
-                               class="form-control col-3"
-                               id="tags"
-                               name="tags"
-                               placeholder="英文只能小写"
-                        >
-                    </div>
+                <!-- 文章栏目 -->
+                <div class="form-group">
+                    <label for="column">栏目</label>
+                    <select class="form-control col-3" id="column" name="column">
+                        <option value="none">请选择栏目..</option>
+                        {% for column in columns %}
+                        <option value="{{ column.id }}">{{ column }}</option>
+                        {% endfor %}
+                    </select>
+                </div>
 
-                    <!-- 文章正文 -->
-                    <div class="form-group">
-                        <label for="body">文章正文</label>
-                        <!-- 文本区域 -->
-                        <textarea type="text"
-                                  class="form-control"
-                                  id="body"
-                                  name="body"
-                                  rows="12"
-                        ></textarea>
+                <!-- 文章标签 -->
+                <div class="form-group">
+                    <!-- 标签 -->
+                    <label for="tags">标签</label>
+                    <!-- 文本框 -->
+                    <input type="text" class="form-control col-3" id="tags" name="tags" placeholder="英文只能小写">
+                </div>
+
+                <!-- 文章正文 -->
+                <!-- <div class="form-group">
+                    <label for="body">文章正文</label> -->
+                <!-- 文本区域 -->
+                <!-- <textarea type="text" class="form-control" id="body" name="body" rows="12"></textarea>
+                </div> -->
+                <div class="form-group">
+                    <label for="body">文章正文</label>
+                    <div>
+                        {{ article_post_form.media }}
+                        {{ article_post_form.body }}
                     </div>
-                    <!-- 提交按钮 -->
-                    <button type="submit" class="btn btn-primary">完成</button>
-                </form>
-            </div>
+                </div>
+                <!-- 提交按钮 -->
+                <button type="submit" class="btn btn-primary">完成</button>
+            </form>
         </div>
     </div>
+</div>
+
+
+<script>
+    function ss() {
+        var img = document.getElementById(" imgBlog ");
+        var file = document.getElementById(' browse ');
+        img.onmousemove = function (e) {
+            var x, y;
+            if (e) {
+                x = e.clientX;
+                y = e.clientY;
+            } else {
+                x = event.x;
+                y = event.y;
+            }
+            window.status = x + " , " + y;
+            file.style.left = (x - 10) + ' px ';
+            file.style.top = (y - 10) + ' px ';
+        };
+    };
+    ss();
+</script>
 {% endblock content %}
