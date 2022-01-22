@@ -98,18 +98,18 @@ WSGI_APPLICATION = 'gopher.wsgi.application'
 # https://docs.djangoproject.com/en/2.1/ref/settings/#databases
 
 DATABASES = {
-    # 'default': {
-    #     'ENGINE': 'django.db.backends.sqlite3',
-    #     'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-    # }
     'default': {
-        'ENGINE': 'django.db.backends.mysql',
-        'NAME': 'blog',        # 数据库名字
-        'USER': 'root',          # 账号
-        'PASSWORD': 'password',      # 密码
-        'HOST': '127.0.0.1',    # IP
-        'PORT': '3306',                   # 端口
+        'ENGINE': 'django.db.backends.sqlite3',
+        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
     }
+    # 'default': {
+    #     'ENGINE': 'django.db.backends.mysql',
+    #     'NAME': 'blog',        # 数据库名字
+    #     'USER': 'root',          # 账号
+    #     'PASSWORD': 'guo199902',      # 密码
+    #     'HOST': '127.0.0.1',    # IP
+    #     'PORT': '3306',                   # 端口
+    # }
 
 }
 

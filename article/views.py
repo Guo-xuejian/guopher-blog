@@ -68,8 +68,8 @@ def article_list(request):
         # 按热度排序博文
         article_list = article_list.order_by('-total_views')
 
-    # 每页显示 1 篇文章
-    paginator = Paginator(article_list, 3)
+    # 每页显示 5 篇文章
+    paginator = Paginator(article_list, 5)
     # 获取 url 中的页码
     page = request.GET.get('page')
     # 将导航对象相应的页码内容返回给 articles
@@ -265,7 +265,8 @@ def article_update(request, id):
     # 如果用户 GET 请求获取数据
     else:
         # 创建表单类实例
-        article_post_form = ArticlePostForm()
+        article_post_form = ArticlePostForm(initial={"body": article.body})
+
 
         # 文章栏目
         columns = ArticleColumn.objects.all()

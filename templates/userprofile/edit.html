@@ -20,6 +20,20 @@
                     <div class="form-group col-md-4">
                         <label for="avatar">上传头像</label>
                         <input type="file" class="form-control-file" name="avatar" id="avatar">
+                        <div class="input-group">
+                            <input id='location' class="form-control" onclick="$('#avatar').click();">
+                            <label class="input-group-btn">
+                                <input type="button" id="i-check" value="选择文件" class="btn btn-primary"
+                                    onclick="$('#avatar').click();">
+    
+                                <!-- <input type="submit" value="上传文件" onclick="getCookieInfoInLimitedTime()"
+                                        class="btn btn-primary"> -->
+                            </label>
+                        </div>
+                        <!-- </div> -->
+                        <input type="file" name="avatar" id='avatar' multiple="multiple"
+                            accept="application/msexcel,application/msword,application/pdf,image/jpeg,image/text/plain/png,application/vnd.openxmlformats-officedocument.spreadsheetml.sheet,application/vnd.openxmlformats-officedocument.wordprocessingml.document"
+                            onchange="$('#location').val($('#avatar').val());" style="display: none">
                     </div>
 
                     <!-- phone -->
